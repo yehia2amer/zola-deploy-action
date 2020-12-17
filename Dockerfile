@@ -1,4 +1,4 @@
-from debian:stretch-slim
+from ubuntu:latest
 MAINTAINER Shaleen Jain <shaleen@jain.sh>
 
 LABEL "com.github.actions.name"="Zola Deploy to Pages"
@@ -13,9 +13,12 @@ ENV LANGUAGE en_US.UTF-8
 
 RUN apt-get update && apt-get install -y wget git
 
-RUN wget -q -O - \
-"https://github.com/getzola/zola/releases/download/v0.12.2/zola-v0.12.2-x86_64-unknown-linux-gnu.tar.gz" \
-| tar xzf - -C /usr/local/bin
+RUN curl -s https://api.github.com/repos/emosenkis/zola/releases/latest \
+  | grep browser_download_url \
+  | cut -d '"' -f 4 \
+  | wget -qi -
+RUN chmod +x zola
+RUN mv zola /usr/local/bin/
 
 COPY entrypoint.sh /entrypoint.sh
 
