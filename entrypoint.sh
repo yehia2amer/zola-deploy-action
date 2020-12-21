@@ -52,7 +52,7 @@ main() {
     fi
 
     version=$(zola --version)
-    remote_repo="https://${GITHUB_TOKEN}@github.com/${TARGET_REPOSITORY}.git"
+    remote_repo="https://yehia2amer:${GITHUB_TOKEN}@github.com/${TARGET_REPOSITORY}.git"
     remote_branch="$PAGES_BRANCH"
 
     echo "Using $version"
